@@ -2,6 +2,7 @@ import { Component } from "./modules/classes/Component/component";
 import { createElement } from "./modules/classes/VirtualDOM/functions";
 import { VirtualDOM } from "./modules/classes/VirtualDOM/virtualDOM";
 
+// Создание компонента Header
 const Header = new Component(
   "header",
   {
@@ -9,6 +10,7 @@ const Header = new Component(
     style:
       "width: 100%; background: #000; position: fixed; top: 0; color: #fff",
     onclick: () => {
+      // Изменение стиля
       Header.props.style =
         "width: 100%; background: rgb(201, 85, 85); position: fixed; top: 0; color: #fff";
     },
@@ -16,6 +18,7 @@ const Header = new Component(
   ["Header"]
 );
 
+// Создание основного компонента App
 const App = new Component(
   "div",
   {
@@ -50,7 +53,10 @@ const vDom =
     : new Proxy(_target, {
         set: (target, key: string, val: any) => {
           const result = Reflect.set(target, key, val);
+          
+          // Вызываем перерисовку при изменении данных
           renderApp();
+
           return result;
         },
       });
@@ -60,3 +66,5 @@ if (root) {
   appElement = createElement(vDom);
   root.appendChild(appElement);
 }
+
+renderApp();
